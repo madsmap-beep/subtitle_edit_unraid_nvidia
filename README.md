@@ -1,6 +1,6 @@
 # Subtitle Edit for Unraid (NVIDIA, VNC, and browser UI)
 
-The published image includes Subtitle Edit `v5.3.0-rc2`, its Linux runtime
+The published image includes the stable Subtitle Edit `v5.2.0`, its Linux runtime
 dependencies, and the jlesage browser desktop with VNC and browser audio.
 GitHub Actions builds and publishes it to GitHub Container Registry whenever
 the `main` branch changes.
@@ -10,7 +10,7 @@ the `main` branch changes.
 Use the Unraid template at `unraid-template.xml`, or pull the prebuilt image:
 
 ```bash
-docker pull ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.3.0-rc2
+docker pull ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.2.0
 ```
 
 No local Docker build is required.
@@ -32,7 +32,7 @@ docker run -d \
   -v /mnt/user/appdata/subtitleedit:/config \
   -v /mnt/user/media:/data \
   --restart unless-stopped \
-  ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.3.0-rc2
+  ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.2.0
 ```
 
 Open `http://UNRAID-IP:3001/` for the browser desktop and audio.
@@ -56,12 +56,12 @@ filesystem permissions.
 
 ## Linux file picker sorting
 
-The file picker in Subtitle Edit v5.3.0-rc2 displays columns whose headers do
-not sort when clicked in this container. Bulk Rename Utility uses its own
-custom file list with explicit sort-button handlers; that behavior is not a
-Docker setting and cannot be transferred to Subtitle Edit through its image.
-Fixing Subtitle Edit's picker requires a change in Subtitle Edit or its
-Avalonia Linux file-picker path.
+On the previous `5.3.0-rc2` image, the file picker showed columns whose headers
+did not sort when clicked. That behavior has not yet been tested against stable
+`5.2.0`, so this version change should not be considered a confirmed sorting
+fix. Sorting is controlled by Subtitle Edit's Linux file-picker implementation,
+not a Docker setting; if it remains broken on `5.2.0`, an upstream app or
+Avalonia file-picker change may be needed.
 
 ## Unraid template
 
@@ -78,6 +78,6 @@ operation is GPU-accelerated; the virtual desktop uses Xvfb for UI rendering.
 
 ## Published image
 
-GitHub Actions publishes `latest` and `5.3.0-rc2` tags to
+GitHub Actions publishes `latest` and `5.2.0` tags to
 `ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia`. If the package is private,
 make it public in the repository's **Packages** → **Package settings**.
