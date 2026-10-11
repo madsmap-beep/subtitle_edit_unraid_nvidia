@@ -1,7 +1,7 @@
 # Subtitle Edit for Unraid (NVIDIA, VNC, and browser UI)
 
 The published image includes Subtitle Edit `v5.3.0-rc2`, its Linux runtime
-dependencies, a virtual desktop, VNC, noVNC, and Xpra browser audio streaming.
+dependencies, and the jlesage browser desktop with VNC and browser audio.
 GitHub Actions builds and publishes it to GitHub Container Registry whenever
 the `main` branch changes.
 
@@ -25,12 +25,11 @@ and Docker will try (and fail) to pull it from Docker Hub.
 docker run -d \
   --name=SubtitleEdit \
   --gpus=all \
-  -p 10000:10000 \
-  -p 6080:6080 \
+  -p 3001:5800 \
   -p 5900:5900 \
   -e NVIDIA_VISIBLE_DEVICES=all \
   -e NVIDIA_DRIVER_CAPABILITIES=all \
-  -e WEB_PASSWORD='choose-a-web-password' \
+  -e WEB_AUDIO=1 \
   -e VNC_PASSWORD='edit1234' \
   -v /mnt/user/appdata/subtitleedit:/config \
   -v /mnt/user/media:/data \
@@ -38,20 +37,16 @@ docker run -d \
   ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.3.0-rc2
 ```
 
-Open `http://UNRAID-IP:10000/` for the browser desktop **with audio**, or
-`http://UNRAID-IP:6080/vnc.html?autoconnect=true&resize=scale` for noVNC.
+Open `http://UNRAID-IP:3001/` for the browser desktop and audio.
 Traditional VNC clients can connect to `UNRAID-IP:5900`.
-The Xpra browser client carries the desktop audio to your browser; noVNC and
-traditional VNC do not transport audio. Your browser may require a click or
-the Xpra audio control to start playback.
+Browser audio is streamed through the web UI on port 3001; **no extra audio
+port is needed**. As with the example image, raw VNC clients on port 5900 do
+not carry audio. Your browser may require a click before it allows playback.
 
-`WEB_PASSWORD` protects the audio-enabled Xpra browser desktop. `VNC_PASSWORD`
-is optional; if omitted or empty, VNC works without a password. VNC passwords
-must be 1-8 printable ASCII characters, as required by traditional VNC
-authentication. VNC/noVNC passwordless mode and an unset `WEB_PASSWORD` are
-unauthenticated; only expose those ports to trusted networks.
-To use a mounted VNC password file instead, set `VNC_PASSWORD_FILE` to its
-path; the file must be readable by container UID 99.
+`VNC_PASSWORD` is optional. If omitted or empty, VNC works without a password.
+VNC passwords are limited to eight characters. The browser interface is
+unauthenticated by default; only expose it to trusted networks or put it behind
+a trusted HTTPS reverse proxy.
 
 Subtitle Edit settings are kept in `/config`; mount your media folder at
 `/data` (or use another container path) so files remain accessible after
@@ -62,8 +57,8 @@ recreating the container.
 Copy `unraid-template.xml` to
 `/boot/config/plugins/dockerMan/templates-user/my-SubtitleEdit.xml` on Unraid,
 then add it from the Docker tab's **Add Container** → **Template** menu. The
-template pulls the ready-to-run GHCR image and maps the audio-enabled web UI,
-noVNC, VNC, `/config`, and `/data`.
+template pulls the ready-to-run GHCR image and maps the audio-enabled browser
+UI, optional direct VNC port, `/config`, and `/data`.
 
 The host must have a working NVIDIA driver and NVIDIA Container Toolkit/runtime
 configured for Docker. The image sets `NVIDIA_VISIBLE_DEVICES=all` and

@@ -1,26 +1,25 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>SubtitleEdit</Name>
-  <Repository>ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.3.0-rc2</Repository>
+  <Repository>ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:latest</Repository>
   <Network>bridge</Network>
   <MyIP/>
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
   <Support>https://github.com/SubtitleEdit/subtitleedit</Support>
   <Project>https://github.com/SubtitleEdit/subtitleedit</Project>
-  <Overview>Subtitle Edit v5.3.0-rc2 with VNC, browser-based noVNC, and NVIDIA GPU passthrough.</Overview>
+  <Overview>Subtitle Edit with browser-based VNC, browser audio, and NVIDIA GPU passthrough.</Overview>
   <Category>MediaApp:Video</Category>
-  <WebUI>http://[IP]:[PORT:10000]/</WebUI>
+  <WebUI>http://[IP]:[PORT:5800]/</WebUI>
   <ExtraParams>--gpus=all</ExtraParams>
   <PostArgs/>
   <Date>2026-10-11</Date>
-  <Config Name="Audio-enabled Web UI" Target="10000" Default="10000" Mode="tcp" Description="Browser desktop with audio via Xpra" Type="Port" Display="always" Required="true" Mask="false">10000</Config>
-  <Config Name="noVNC" Target="6080" Default="6080" Mode="tcp" Description="Browser desktop via noVNC (no audio)" Type="Port" Display="always" Required="true" Mask="false">6080</Config>
+  <Config Name="Web UI" Target="5800" Default="3001" Mode="tcp" Description="Browser desktop with audio (no extra audio port required)" Type="Port" Display="always" Required="true" Mask="false">3001</Config>
   <Config Name="VNC" Target="5900" Default="5900" Mode="tcp" Description="Direct VNC connection" Type="Port" Display="always" Required="true" Mask="false">5900</Config>
   <Config Name="Subtitle Edit settings" Target="/config" Default="/mnt/user/appdata/subtitleedit" Mode="rw" Description="Persistent application configuration" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/subtitleedit</Config>
   <Config Name="Media files" Target="/data" Default="/mnt/user/media" Mode="rw" Description="Media and subtitle files accessible in the container" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/media</Config>
-  <Config Name="VNC password" Target="VNC_PASSWORD" Default="" Description="Leave blank for passwordless VNC; max 8 printable ASCII characters" Type="Variable" Display="always" Required="false" Mask="true"/>
-  <Config Name="Web desktop password" Target="WEB_PASSWORD" Default="" Description="Password for the audio-enabled Xpra browser desktop; leave blank only on trusted networks" Type="Variable" Display="always" Required="false" Mask="true"/>
+  <Config Name="VNC password" Target="VNC_PASSWORD" Default="" Description="Leave blank for passwordless VNC; VNC password limited to 8 characters" Type="Variable" Display="always" Required="false" Mask="true"/>
+  <Config Name="Browser audio" Target="WEB_AUDIO" Default="1" Description="Stream application audio through the browser Web UI" Type="Variable" Display="advanced" Required="true" Mask="false">1</Config>
   <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="all" Description="NVIDIA devices exposed by the host runtime" Type="Variable" Display="advanced" Required="false" Mask="false">all</Config>
   <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="all" Description="NVIDIA driver capabilities" Type="Variable" Display="advanced" Required="false" Mask="false">all</Config>
 </Container>
