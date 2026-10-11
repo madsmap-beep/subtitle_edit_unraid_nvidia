@@ -12,6 +12,8 @@ ENV WEB_AUDIO=1 \
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+RUN getent group staff >/dev/null || groupadd --system staff
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates \
         curl \
