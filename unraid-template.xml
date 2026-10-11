@@ -18,6 +18,7 @@
   <Config Name="VNC" Target="5900" Default="5900" Mode="tcp" Description="Direct VNC connection" Type="Port" Display="always" Required="true" Mask="false">5900</Config>
   <Config Name="Subtitle Edit settings" Target="/config" Default="/mnt/user/appdata/subtitleedit" Mode="rw" Description="Persistent application configuration" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/subtitleedit</Config>
   <Config Name="Media files" Target="/data" Default="/mnt/user/media" Mode="rw" Description="Media and subtitle files accessible in the container" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/media</Config>
+    <Config Name="DRI devices" Target="/dev/dri" Default="/dev/dri" Mode="rw" Description="Intel/AMD GPU devices for Vulkan acceleration (optional; host drivers required)" Type="Device" Display="advanced" Required="false" Mask="false">/dev/dri</Config>
   <Config Name="VNC password" Target="VNC_PASSWORD" Default="" Description="Leave blank for passwordless VNC; VNC password limited to 8 characters" Type="Variable" Display="always" Required="false" Mask="true"/>
   <Config Name="Browser audio" Target="WEB_AUDIO" Default="1" Description="Stream application audio through the browser Web UI" Type="Variable" Display="advanced" Required="true" Mask="false">1</Config>
   <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="all" Description="NVIDIA devices exposed by the host runtime" Type="Variable" Display="advanced" Required="false" Mask="false">all</Config>
