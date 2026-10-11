@@ -26,9 +26,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libnss3 \
         libssl3t64 \
         mpv \
-        xdg-desktop-portal \
-        xdg-desktop-portal-gtk \
-        xdg-utils \
     && mpv_library="$(ldconfig -p | awk '/libmpv\.so\.[0-9]+/{print $NF; exit}')" \
     && test -n "$mpv_library" \
     && ln -s "$(basename "$mpv_library")" "$(dirname "$mpv_library")/libmpv.so" \
