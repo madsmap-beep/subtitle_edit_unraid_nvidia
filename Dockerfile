@@ -20,6 +20,12 @@ RUN mkdir -p /config/log \
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates \
+                               dbus-x11 \
+        libnss-wrapper \
+        xdg-desktop-portal \
+        xdg-desktop-portal-gtk \
+        adwaita-icon-theme \
+        shared-mime-info \
         curl \
         ffmpeg \
         fonts-dejavu-core \
@@ -35,6 +41,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && test -n "$mpv_library" \
     && ln -s "$(basename "$mpv_library")" "$(dirname "$mpv_library")/libmpv.so" \
     && rm -rf /var/lib/apt/lists/*
+    
+COPY portals.conf /etc/xdg/xdg-desktop-portal/portals.conf
 
 RUN curl --fail --location --silent --show-error \
         "https://github.com/SubtitleEdit/subtitleedit/releases/download/v${SUBTITLEEDIT_VERSION}/SubtitleEdit-Linux-x64.tar.gz" \
