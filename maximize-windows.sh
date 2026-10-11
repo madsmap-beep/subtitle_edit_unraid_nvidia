@@ -10,17 +10,15 @@ if [ ! -s "$config" ]; then
 fi
 
 awk '
-    index($0, "</applications>") && !added {
-        print "  <application class=\"*\">"
-        print "    <maximized>yes</maximized>"
-        print "  </application>"
-        added = 1
+    !changed && /<decor>no<\/decor>/ {
+        sub(/<decor>no<\/decor>/, "<decor>yes</decor>")
+        changed = 1
     }
     { print }
-    END { if (!added) exit 1 }
+    END { if (!changed) exit 1 }
 ' "$config" > "$tmp" || {
     rm -f "$tmp"
-    printf '%s\n' 'Unable to add maximize rule to Openbox config.' >&2
+    printf '%s\n' 'Unable to enable the Subtitle Edit window title bar.' >&2
     exit 1
 }
 
