@@ -59,3 +59,6 @@ VOLUME ["/config", "/data"]
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
     CMD curl --fail --silent http://127.0.0.1:5800/ -o /dev/null || exit 1
+
+COPY maximize-windows.sh /etc/cont-init.d/20-maximize-windows.sh
+RUN sed -i 's/\r$//' /etc/cont-init.d/20-maximize-windows.sh && sh -n /etc/cont-init.d/20-maximize-windows.sh && chmod 0755 /etc/cont-init.d/20-maximize-windows.sh
