@@ -26,8 +26,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libfontconfig1 \
         libfreetype6 \
         libgl1 \
+        libice6 \
         libicu74 \
         libmpv2 \
+        libsm6 \
         mpv \
     && mpv_library="$(ldconfig -p | awk '/libmpv\.so\.[0-9]+/{print $NF; exit}')" \
     && test -n "$mpv_library" \
