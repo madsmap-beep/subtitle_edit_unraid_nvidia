@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>SubtitleEdit</Name>
-  <Repository>ghcr.io/madsmap-beep/sutitle_edit_unraid_nvidia:5.3.0-rc2</Repository>
+  <Repository>ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.3.0-rc2</Repository>
   <Network>bridge</Network>
   <MyIP/>
   <Shell>sh</Shell>

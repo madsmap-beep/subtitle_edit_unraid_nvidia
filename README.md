@@ -10,10 +10,14 @@ the `main` branch changes.
 Use the Unraid template at `unraid-template.xml`, or pull the prebuilt image:
 
 ```bash
-docker pull ghcr.io/madsmap-beep/sutitle_edit_unraid_nvidia:5.3.0-rc2
+docker pull ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.3.0-rc2
 ```
 
 No local Docker build is required.
+
+The correct image name is `ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.3.0-rc2`.
+Do not use `subtitleedit-unraid:5.3.0-rc2`; that was an old local-build tag
+and Docker will try (and fail) to pull it from Docker Hub.
 
 ## Run manually
 
@@ -31,7 +35,7 @@ docker run -d \
   -v /mnt/user/appdata/subtitleedit:/config \
   -v /mnt/user/media:/data \
   --restart unless-stopped \
-  ghcr.io/madsmap-beep/sutitle_edit_unraid_nvidia:5.3.0-rc2
+  ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.3.0-rc2
 ```
 
 Open `http://UNRAID-IP:10000/` for the browser desktop **with audio**, or
@@ -76,7 +80,7 @@ models, and media tools being used.
 ## Published image
 
 GitHub Actions publishes both `latest` and `5.3.0-rc2` tags to
-`ghcr.io/madsmap-beep/sutitle_edit_unraid_nvidia`. If GitHub marks the package
+`ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia`. If GitHub marks the package
 private on first publish, open the repository's **Packages** section, select
 the container package, then use **Package settings** → **Change visibility** →
 **Public** so Unraid can pull it without logging in.
