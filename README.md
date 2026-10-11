@@ -56,12 +56,7 @@ filesystem permissions.
 
 ## Linux file picker sorting
 
-On the previous `5.3.0-rc2` image, the file picker showed columns whose headers
-did not sort when clicked. That behavior has not yet been tested against stable
-`5.2.0`, so this version change should not be considered a confirmed sorting
-fix. Sorting is controlled by Subtitle Edit's Linux file-picker implementation,
-not a Docker setting; if it remains broken on `5.2.0`, an upstream app or
-Avalonia file-picker change may be needed.
+The image now starts a D-Bus session and prefers the GTK desktop portal, matching the sortable native chooser used by gMKVExtractGUI. This is a container-side fix attempt; please update/recreate the container and check whether the file-list headers now sort. The existing jlesage base already provides both noVNC and direct VNC, so changing VNC implementations is not necessary.
 
 ## Unraid template
 
