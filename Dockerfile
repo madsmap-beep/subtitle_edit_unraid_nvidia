@@ -17,16 +17,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         curl \
         ffmpeg \
         fonts-dejavu-core \
-        libasound2 \
+        libasound2t64 \
         libfontconfig1 \
         libfreetype6 \
         libgl1 \
-        libglib2.0-0 \
-        libgtk-3-0 \
+        libglib2.0-0t64 \
+        libgtk-3-0t64 \
         libicu74 \
         libmpv2 \
         libnss3 \
-        libssl3 \
+        libssl3t64 \
         mpv \
         xdg-desktop-portal \
         xdg-desktop-portal-gtk \
