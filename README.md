@@ -76,3 +76,12 @@ operation is GPU-accelerated; the virtual desktop uses Xvfb for UI rendering.
 GitHub Actions publishes `latest` and `5.2.0` tags to
 `ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia`. If the package is private,
 make it public in the repository's **Packages** → **Package settings**.
+
+## Vulkan GPU acceleration
+
+The image includes the Vulkan loader, Mesa Vulkan drivers (including Mesa drivers for supported AMD and Intel GPUs), and `vulkaninfo`. Whisper.cpp GPU acceleration depends on Subtitle Edit's downloaded Linux binary, your GPU, and the host drivers; it is not guaranteed on every device. The Linux UI may still label the Whisper.cpp option as CPU even when its Linux binary supports Vulkan.
+
+- **AMD/Intel:** install the appropriate host kernel drivers and add the optional `/dev/dri` device mapping in the Unraid container template. The host GPU and render node must be accessible to the container user. If Vulkan reports permission errors, check the host ownership and permissions of `/dev/dri/renderD*` and `/dev/dri/card*`; do not assume fixed group IDs.
+- **NVIDIA:** install/configure the NVIDIA Container Toolkit on Unraid and expose the GPU with `--gpus=all`. The template already sets `NVIDIA_VISIBLE_DEVICES=all` and `NVIDIA_DRIVER_CAPABILITIES=all`; the host runtime must provide a compatible NVIDIA Vulkan driver/ICD. Mesa does not replace NVIDIA's proprietary Vulkan driver.
+
+To diagnose device visibility, run `vulkaninfo --summary` inside the container. A working Vulkan loader alone does not mean a GPU is available; the output should list the intended physical device. Vulkan support here is separate from NVIDIA-only cuBLAS and Windows-only Whisper Const-me.
