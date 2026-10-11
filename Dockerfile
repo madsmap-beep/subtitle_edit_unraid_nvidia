@@ -32,6 +32,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libfontconfig1 \
         libfreetype6 \
         libgl1 \
+                libvulkan1 \
+        mesa-vulkan-drivers \
+        vulkan-tools \
         libice6 \
         libicu74 \
         libmpv2 \
