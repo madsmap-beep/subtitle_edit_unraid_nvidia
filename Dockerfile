@@ -12,7 +12,9 @@ ENV WEB_AUDIO=1 \
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN getent group staff >/dev/null || groupadd --system staff
+RUN groupadd --force --system staff \
+    && getent passwd root >/dev/null || useradd --system --uid 0 --gid 0 --no-create-home --shell /usr/sbin/nologin root \
+    && mkdir -p /config/log
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates \
