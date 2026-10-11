@@ -12,6 +12,12 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates \
         curl \
+        gnupg \
+    && curl --fail --location --silent --show-error https://xpra.org/gpg.asc \
+        | gpg --dearmor --output /usr/share/keyrings/xpra-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/xpra-archive-keyring.gpg] https://xpra.org/ trixie main" \
+        > /etc/apt/sources.list.d/xpra.list \
+    && apt-get update && apt-get install -y --no-install-recommends \
         ffmpeg \
         fluxbox \
         fonts-dejavu-core \
@@ -24,6 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libicu76 \
         libmpv2 \
         libnss3 \
+        libasound2-plugins \
         libssl3t64 \
         libx11-6 \
         libxcomposite1 \
@@ -38,9 +45,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libxtst6 \
         mpv \
         novnc \
+        pulseaudio \
         python3-websockify \
         supervisor \
         x11vnc \
+        xpra-server \
+        xpra-audio-server \
+        xpra-codecs \
         xvfb \
     && rm -rf /var/lib/apt/lists/*
 
@@ -55,14 +66,17 @@ RUN curl --fail --location --silent --show-error \
     && (getent group 100 >/dev/null || groupadd --gid 100 users) \
     && useradd --uid 99 --gid 100 --home-dir /config --no-create-home \
         --shell /usr/sbin/nologin subtitleedit \
+    && mkdir -p /tmp/pulse \
+    && chown -R 99:100 /tmp/pulse \
     && chown -R 99:100 /config /data
 
 COPY supervisord.conf /etc/supervisor/conf.d/subtitleedit.conf
 COPY start-vnc.sh /usr/local/bin/start-vnc
+COPY start-xpra.sh /usr/local/bin/start-xpra
 COPY start-app.sh /usr/local/bin/start-app
-RUN chmod 0755 /usr/local/bin/start-vnc /usr/local/bin/start-app
+RUN chmod 0755 /usr/local/bin/start-vnc /usr/local/bin/start-xpra /usr/local/bin/start-app
 
-EXPOSE 5900/tcp 6080/tcp
+EXPOSE 5900/tcp 6080/tcp 10000/tcp
 VOLUME ["/config", "/data"]
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
