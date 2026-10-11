@@ -1,4 +1,4 @@
-FROM jlesage/baseimage-gui:ubuntu-26.04-v4@sha256:8e839e319c64c203a048f703c0c75da94715724eb873b5a3a756eaf1b80b62ab
+FROM jlesage/baseimage-gui:ubuntu-24.04-v4@sha256:e7c54da3446b4c65b6755bf00a874463c640a1f579f25bed99532051e81649ef
 
 ARG SUBTITLEEDIT_VERSION=5.3.0-rc2
 ARG SUBTITLEEDIT_SHA256=6615ab68a991331753ed5eff6740000be3fa6aa4df573d9b364784901bb6135e
@@ -17,17 +17,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         curl \
         ffmpeg \
         fonts-dejavu-core \
-        libasound2t64 \
+        libasound2 \
         libfontconfig1 \
         libfreetype6 \
         libgl1 \
-        libglib2.0-0t64 \
-        libgtk-3-0t64 \
-        libicu78 \
+        libglib2.0-0 \
+        libgtk-3-0 \
+        libicu74 \
         libmpv2 \
         libnss3 \
-        libssl3t64 \
+        libssl3 \
         mpv \
+        xdg-desktop-portal \
+        xdg-desktop-portal-gtk \
+        xdg-utils \
     && mpv_library="$(ldconfig -p | awk '/libmpv\.so\.[0-9]+/{print $NF; exit}')" \
     && test -n "$mpv_library" \
     && ln -s "$(basename "$mpv_library")" "$(dirname "$mpv_library")/libmpv.so" \
