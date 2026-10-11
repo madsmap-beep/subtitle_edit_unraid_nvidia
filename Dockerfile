@@ -45,7 +45,10 @@ RUN curl --fail --location --silent --show-error \
     && ln -s /opt/subtitleedit/SubtitleEdit /usr/local/bin/subtitleedit
 
 COPY startapp.sh /startapp.sh
-RUN chmod 0755 /startapp.sh \
+RUN sed -i 's/\r$//' /startapp.sh \
+    && test "$(head -n 1 /startapp.sh)" = '#!/bin/sh' \
+    && sh -n /startapp.sh \
+    && chmod 0755 /startapp.sh \
     && set-cont-env APP_NAME "Subtitle Edit" \
     && set-cont-env APP_VERSION "${SUBTITLEEDIT_VERSION}"
 
