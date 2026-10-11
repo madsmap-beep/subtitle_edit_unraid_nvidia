@@ -22,4 +22,6 @@
   <Config Name="Browser audio" Target="WEB_AUDIO" Default="1" Description="Stream application audio through the browser Web UI" Type="Variable" Display="advanced" Required="true" Mask="false">1</Config>
   <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="all" Description="NVIDIA devices exposed by the host runtime" Type="Variable" Display="advanced" Required="false" Mask="false">all</Config>
   <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="all" Description="NVIDIA driver capabilities" Type="Variable" Display="advanced" Required="false" Mask="false">all</Config>
+  <Config Name="Unraid user ID" Target="USER_ID" Default="99" Description="Run as Unraid nobody (99); override to match media-file owner if needed" Type="Variable" Display="advanced" Required="true" Mask="false">99</Config>
+  <Config Name="Unraid group ID" Target="GROUP_ID" Default="100" Description="Run as Unraid users (100); override to match media-file group if needed" Type="Variable" Display="advanced" Required="true" Mask="false">100</Config>
 </Container>
