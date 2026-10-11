@@ -18,12 +18,13 @@ eval "$(dbus-launch --sh-syntax)"
 gtk_portal_pid=$!
 /usr/libexec/xdg-desktop-portal &
 portal_pid=$!
+app_pid=""
 
 cleanup() {
-    for pid in "$gtk_portal_pid" "$portal_pid"; do
+        for pid in "$app_pid" "$gtk_portal_pid" "$portal_pid"; do
         kill "$pid" 2>/dev/null || true
     done
-    for pid in "$gtk_portal_pid" "$portal_pid"; do
+        for pid in "$app_pid" "$gtk_portal_pid" "$portal_pid"; do
         wait "$pid" 2>/dev/null || true
     done
     if [ -n "${DBUS_SESSION_BUS_PID:-}" ]; then
