@@ -12,9 +12,11 @@ ENV WEB_AUDIO=1 \
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN groupadd --force --system staff \
-    && getent passwd root >/dev/null || useradd --system --uid 0 --gid 0 --no-create-home --shell /usr/sbin/nologin root \
-    && mkdir -p /config/log
+RUN mkdir -p /config/log \
+    && touch /etc/passwd /etc/group \
+    && echo 'root:x:0:0:root:/root:/bin/bash' >> /etc/passwd \
+    && echo 'root:x:0:' >> /etc/group \
+    && echo 'staff:x:50:' >> /etc/group
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates \
