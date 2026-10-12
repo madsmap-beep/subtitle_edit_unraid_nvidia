@@ -56,7 +56,7 @@ filesystem permissions.
 
 ## Linux file picker sorting
 
-The image now starts a D-Bus session and prefers the GTK desktop portal, matching the sortable native chooser used by gMKVExtractGUI. This is a container-side fix attempt; please update/recreate the container and check whether the file-list headers now sort. The existing jlesage base already provides both noVNC and direct VNC, so changing VNC implementations is not necessary.
+The image now starts a D-Bus session and prefers the GTK desktop portal, matching the sortable native chooser used by gMKVExtractGUI. Sorting has been confirmed working. The existing jlesage base already provides both noVNC and direct VNC, so changing VNC implementations is not necessary.
 
 ## Unraid template
 
