@@ -1,6 +1,6 @@
 # Subtitle Edit for Unraid (NVIDIA, VNC, and browser UI)
 
-The published image includes the stable Subtitle Edit `v5.2.0`, its Linux runtime
+The published image includes Subtitle Edit `v5.4.0-beta12`, its Linux runtime
 dependencies, and the jlesage browser desktop with VNC and browser audio.
 GitHub Actions builds and publishes it to GitHub Container Registry whenever
 the `main` branch changes.
@@ -10,7 +10,7 @@ the `main` branch changes.
 Use the Unraid template at `unraid-template.xml`, or pull the prebuilt image:
 
 ```bash
-docker pull ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.2.0
+docker pull ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.4.0-beta12
 ```
 
 No local Docker build is required.
@@ -32,7 +32,7 @@ docker run -d \
   -v /mnt/user/appdata/subtitleedit:/config \
   -v /mnt/user/media:/data \
   --restart unless-stopped \
-  ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.2.0
+  ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia:5.4.0-beta12
 ```
 
 Open `http://UNRAID-IP:3001/` for the browser desktop and audio.
@@ -73,7 +73,7 @@ operation is GPU-accelerated; the virtual desktop uses Xvfb for UI rendering.
 
 ## Published image
 
-GitHub Actions publishes `latest` and `5.2.0` tags to
+GitHub Actions publishes `latest` and `5.4.0-beta12` tags to
 `ghcr.io/madsmap-beep/subtitle_edit_unraid_nvidia`. If the package is private,
 make it public in the repository's **Packages** → **Package settings**.
 
